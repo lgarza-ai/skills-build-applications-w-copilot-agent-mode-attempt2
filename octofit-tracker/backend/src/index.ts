@@ -14,6 +14,18 @@ const port = Number(process.env.PORT || 8000);
 const apiBaseUrl = getApiBaseUrl();
 
 app.use(express.json());
+app.use((req: Request, res: Response, next: () => void) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(204);
+    return;
+  }
+
+  next();
+});
 
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
