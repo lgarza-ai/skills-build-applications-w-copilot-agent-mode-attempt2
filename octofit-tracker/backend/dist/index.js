@@ -8,7 +8,7 @@ const models_1 = require("./models");
 const database_1 = require("./config/database");
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT || 8000);
-const codespaceName = process.env.CODESPACE_NAME;
+const codespaceName = process.env.CODESPACE_NAME?.trim();
 const apiBaseUrl = codespaceName
     ? `https://${codespaceName}-8000.app.github.dev`
     : 'http://localhost:8000';
