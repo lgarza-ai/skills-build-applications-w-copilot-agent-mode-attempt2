@@ -7,3 +7,7 @@ export function getApiBaseUrl() {
 
   return 'http://localhost:8000';
 }
+
+export function getApiUrl(endpointPath) {
+  return `${getApiBaseUrl()}${endpointPath}`;
+}
