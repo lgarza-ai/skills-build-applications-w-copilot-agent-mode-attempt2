@@ -1,5 +1,4 @@
 import express, { type Request, type Response } from 'express';
-import mongoose from 'mongoose';
 import {
   ActivityModel,
   LeaderboardEntryModel,
@@ -7,6 +6,7 @@ import {
   UserModel,
   WorkoutModel,
 } from './models';
+import { connectDatabase } from './config/database';
 
 const app = express();
 const port = Number(process.env.PORT || 8000);
@@ -16,8 +16,6 @@ const apiBaseUrl = codespaceName
   : 'http://localhost:8000';
 
 app.use(express.json());
-
-const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
 
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
@@ -79,8 +77,7 @@ app.post(['/api/workouts', '/api/workouts/'], async (req: Request, res: Response
 });
 
 async function startServer() {
-  await mongoose.connect(mongoUri);
-  console.log(`Connected to MongoDB at ${mongoUri}`);
+  await connectDatabase();
 
   app.listen(port, '0.0.0.0', () => {
     console.log(`OctoFit backend listening on port ${port}`);
