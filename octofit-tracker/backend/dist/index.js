@@ -6,12 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const models_1 = require("./models");
 const database_1 = require("./config/database");
+const server_1 = require("./server");
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT || 8000);
-const codespaceName = process.env.CODESPACE_NAME?.trim();
-const apiBaseUrl = codespaceName
-    ? `https://${codespaceName}-8000.app.github.dev`
-    : 'http://localhost:8000';
+const apiBaseUrl = (0, server_1.getApiBaseUrl)();
 app.use(express_1.default.json());
 app.get('/api/health', (_req, res) => {
     res.json({
