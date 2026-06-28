@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl } from '../utils/api';
 
 function Activities() {
+  const activitiesApiUrl = 'https://psychic-orbit-97vj56jpqrvx39r59-8000.app.github.dev/api/activities';
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -9,7 +9,7 @@ function Activities() {
   useEffect(() => {
     async function loadActivities() {
       try {
-        const response = await fetch(getApiUrl('/api/activities/'));
+        const response = await fetch(activitiesApiUrl);
         if (!response.ok) throw new Error('Unable to load activities');
         const data = await response.json();
         setItems(Array.isArray(data) ? data : data.results || []);

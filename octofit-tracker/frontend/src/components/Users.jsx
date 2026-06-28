@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl } from '../utils/api';
 
 function Users() {
+  const usersApiUrl = 'https://psychic-orbit-97vj56jpqrvx39r59-8000.app.github.dev/api/users';
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -9,7 +9,7 @@ function Users() {
   useEffect(() => {
     async function loadUsers() {
       try {
-        const response = await fetch(getApiUrl('/api/users/'));
+        const response = await fetch(usersApiUrl);
         if (!response.ok) throw new Error('Unable to load users');
         const data = await response.json();
         setItems(Array.isArray(data) ? data : data.results || []);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl } from '../utils/api';
 
 function Teams() {
+  const teamsApiUrl = 'https://psychic-orbit-97vj56jpqrvx39r59-8000.app.github.dev/api/teams';
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -9,7 +9,7 @@ function Teams() {
   useEffect(() => {
     async function loadTeams() {
       try {
-        const response = await fetch(getApiUrl('/api/teams/'));
+        const response = await fetch(teamsApiUrl);
         if (!response.ok) throw new Error('Unable to load teams');
         const data = await response.json();
         setItems(Array.isArray(data) ? data : data.results || []);
